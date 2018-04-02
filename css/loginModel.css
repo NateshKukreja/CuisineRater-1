@@ -1,0 +1,75 @@
+.btn-success
+{
+  transition: 0.5s;
+  background-color:#af3333;
+  color:white;
+  border-color: white;
+}
+
+.btn-success:hover, .btn-success:focus
+{
+  background: #e24f4f;
+  border-color: #af3333;
+  color: white;
+  transition: all 0.4s;
+}
+
+.btn-warning
+{
+  transition: 0.5s;
+  background-color:#af3333;
+  color:white;
+  border-color: white;
+}
+
+.btn-warning:hover, .btn-warning:focus
+{
+  background: #e24f4f;
+  color: white;
+  border-color: #af3333;
+}
+
+.panel.with-nav-tabs .nav-tabs
+{
+  border-bottom: none; 
+}
+.panel.with-nav-tabs .nav-justified
+{
+  margin-bottom: -4px;
+}
+
+.panel
+{
+  margin: 7%;
+}
+
+.panel .panel-heading
+{
+  background-color:#af3333;
+  color: black;
+}
+
+.modal-header
+{
+  background: lightgrey;
+  color: white;
+  text-align: center;
+}
+
+.input-group-addon
+{
+  background-color: #af3333;
+  color: white;
+}
+
+.iga1
+{
+  background-color: #af3333;
+  color: white;
+}
+
+.iga2
+{
+  background-color: #af3333;
+  color: white;
+}
