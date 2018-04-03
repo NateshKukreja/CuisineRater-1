@@ -1117,12 +1117,12 @@ textarea {
 .flex-direction-nav a.flex-next:before {
 	content: '\f054';
 }
-.hours-box {
-	background: rgba(54,50,59,.9);
+.comment-box {
+	background: rgba(175,51,51,.9);
 	padding: 38px;
 	font-size: 12px;
 	line-height: 26px;
-	color: #fff;
+	color: #fff;4286f4
 	font-family: 'PT Sans', sans-serif;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -1130,23 +1130,23 @@ textarea {
 	width: 50%;
 	text-align: left;
 }
-.hours-box .day {
-	color: #b5b8c1;
+.comment-box .day {
+	color: #af3333;
 	float: left;
 }
-.hours-box .hours {
+.comment-box .hours {
 	float: right;
 }
-.hours-box .title {
+.comment-box .title {
 	font-size: 14px;
 	line-height: 22px;
 	margin-bottom: 38px;
 }
-.hours-box .title .open {
+.comment-box .title .open {
 	float: right;
 	color: #80c257;
 }
-.hours-box .info {
+.comment-box .info {
 	margin-top: 38px;
 }
 @media all and (max-width: 768px) {
@@ -1161,7 +1161,7 @@ textarea {
 		-moz-transform: translateY(0);
 		transform: translateY(0);
 	}
-	.hours-box {
+	.comment-box {
 		width: 100%;
 	}
 }

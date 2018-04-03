@@ -37,8 +37,8 @@
 						<p>Information</p>
 					</div> <!-- end .col-xs-6 -->
 					<div class="col-xs-6">
-						<p><b>00 1234 5678</b></p>
-						<p><b>00 2345 6780</b></p>
+						<p><b>613-422-5534</b></p>
+						<p><b>613-422-5534</b></p>
 					</div> <!-- end .col-xs-6 -->
 				</div> <!-- end .row -->
 			</div> <!-- end .col-sm-3 -->

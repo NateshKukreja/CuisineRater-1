@@ -94,7 +94,7 @@ else{
 					$user = $_SESSION['name'];
 				echo'
 					<li>
-						<a href="profile.php?name=$user" style="color:#ef4a4a">' . $user . '</a>
+						<a href="profile.php?name=' . $user . '" style="color:#ef4a4a">' . $user . '</a>
 						<ul>
 							<li><a href="logout.php">Logout</a></li>
 						</ul>

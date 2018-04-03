@@ -16,7 +16,7 @@
 	<?php include("includes/external.php");?>
 </head>
 
-<body style="background-image: url('img/background01.jpg');">
+<body style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/background01.jpg');">
 <?php include("includes/navigation.php");?>
 <div class="spacer"></div>
 <div class="container">

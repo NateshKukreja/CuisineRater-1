@@ -99,7 +99,7 @@
 			<div class="row aligned-cols">
 				<div class="col-sm-6 aligned-middle">
 					<h1><?php echo $name ?><span class="highest_rated"> (Rated by <?php echo $raterName ?>)</span></h1>
-					<p class="button-list"><a href="" class="button light">View ratings</a><a href="" class="button brown solid">Rate</a></p>
+					<p class="button-list"><a href="" class="button light">View ratings</a><a href="" class="button burgundy solid">Rate</a></p>
 				</div> <!-- end .col-sm-6 -->
 				<div class="col-sm-6 text-right">
 					<div class="comment-box">

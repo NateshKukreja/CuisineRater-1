@@ -223,12 +223,12 @@
 							<p>Follow us to view the most recent reviews and photos in your Feed, and discover great new restaurants!</p>
 							<p>We'll send you a link, open it on your phone to download the app</p>
 							<div class="spacer"></div>
-							<form>
+							<form id="appForm" action="submit.php" method="post">
 							  <div class="form-group">
 								<label for="emailAddress">Email address</label>
 								<div class="row">
 									<div class="col-sm-6">
-										<input type="email" class="form-control form-control-lg" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+										<input type="email" class="form-control form-control-lg" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
 									</div>
 									<div class="col-sm-6">
 										<button type="submit" class="btn btn-primary btn-lg">Send</button>
@@ -237,6 +237,9 @@
 								<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 							  </div>
 							</form>
+							<?php 
+								echo (isset($message) ? $message : ""); 
+							?> 
 						</div> <!-- end .col-sm-6 -->
 					</div> <!-- end .row -->
 				
@@ -254,6 +257,27 @@
 				</div> <!-- end .container -->
 			</div> <!-- end .inner -->
 		</div> <!-- end .section -->
+		
+
+
+  <script>
+  $('#appForm').on('submit', function(e) {
+    e.preventDefault(); //Prevents default submit
+    var form = $(this); 
+    var post_url = form.attr('action'); 
+    var post_data = form.serialize(); //Serialized the form data for process.php
+    $.ajax({
+        type: 'POST',
+        url: 'submit.php', // Your form script
+        data: post_data,
+        success: function(msg) {
+            $('#contact_message').toggleClass('w3-hide w3-show');
+			setTimeout(function(){$('#contact_message').toggleClass('w3-show w3-hide');}, 15000);
+        }
+    });
+  });
+  </script>
+
 		
 		<?php include("includes/footer.php");?>
 		

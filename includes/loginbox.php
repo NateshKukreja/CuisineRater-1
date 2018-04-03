@@ -256,7 +256,7 @@
 												$_SESSION['userid'] = $dbUserid;
 												?>
 												<script>
-												redirectMenu("index.php");
+													redirectMenu("index.php");
 												</script>
 									<?php
 								}
