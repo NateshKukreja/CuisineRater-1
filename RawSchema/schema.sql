@@ -6,7 +6,7 @@ CREATE TABLE Rater (
     name VARCHAR(255) NOT NULL UNIQUE,
     signup_day DATE NOT NULL, 
     type INTEGER NOT NULL, 
-    reputation DECIMAL(1,2) NOT NULL,
+    reputation INTEGER NOT NULL,
     PRIMARY KEY (UserID),
     CONSTRAINT reputation_bound CHECK (reputation >=0 AND reputation <=5),
     FOREIGN KEY (type) REFERENCES RaterCredibility(type)
@@ -95,7 +95,7 @@ CREATE TABLE RatingItem
     UserID INTEGER NOT NULL,
     varDate DATE NOT NULL,
     ItemID INTEGER NOT NULL,
-    rating VARCHAR(255),
+    rating INTEGER,
     comments TEXT,
     PRIMARY KEY (UserID, varDate, ItemID),
     FOREIGN KEY (UserID) REFERENCES Rater(UserID),
