@@ -2,11 +2,10 @@
 CREATE TABLE Rater (
 
     UserID INTEGER,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password TEXT NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE, 
     name VARCHAR(255) NOT NULL UNIQUE,
-    signup_date DATE NOT NULL,
-    typeID INTEGER NOT NULL,
+    signup_day DATE NOT NULL, 
+    type INTEGER NOT NULL, 
     reputation DECIMAL(1,2) NOT NULL,
     PRIMARY KEY (UserID),
     CONSTRAINT reputation_bound CHECK (reputation >=0 AND reputation <=5),
@@ -15,7 +14,7 @@ CREATE TABLE Rater (
 
 CREATE TABLE RaterCredibility (
 
-    typeID INTEGER,
+    type INTEGER,
     description TEXT NOT NULL,
     PRIMARY KEY (type)
 
@@ -39,16 +38,16 @@ CREATE TABLE Rating (
 CREATE TABLE Restaurant (
 
     RestaurantID INTEGER,
-    Name VARCHAR(255) NOT NULL UNIQUE,
+    Name VARCHAR(255) NOT NULL UNIQUE, 
     varType INTEGER,
     URL VARCHAR(255),
     PRIMARY KEY (RestaurantID),
     FOREIGN KEY (varType) REFERENCES Cuisine(typeID)
-
+    
 );
 
 
-CREATE TABLE CUISINE
+CREATE TABLE CUISINE 
 (
 
     typeID INTEGER NOT NULL,
@@ -76,7 +75,7 @@ CREATE TABLE Location (
 CREATE TABLE MenuItem
 (
 
-    ItemID INTEGER,
+    ItemID INTEGER, 
     name VARCHAR(255) NOT NULL,
     varType INTEGER NOT NULL,
     category VARCHAR(255),
@@ -85,12 +84,12 @@ CREATE TABLE MenuItem
     RestaurantID INTEGER NOT NULL,
     PRIMARY KEY (ItemID),
     FOREIGN KEY (RestaurantID) REFERENCES Restaurant(RestaurantID)
-
+    
 );
 
 
 
-CREATE TABLE RatingItem
+CREATE TABLE RatingItem 
 (
 
     UserID INTEGER NOT NULL,
@@ -104,3 +103,33 @@ CREATE TABLE RatingItem
     CONSTRAINT rating CHECK (rating >=0 AND rating <=5)
 
 );
+
+
+#a) Display all the information about a user‐specified restaurant. That is, the user should select the name of the restaurant from a list, and the information as contained in the restaurant and location tables should then displayed on the screen.
+
+SELECT * FROM Restaurant R, Location L WHERE
+L.LocationID = "__" AND L.RestaurantID = R.RestaurantID
+
+#b) Display the full menu of a specific restaurant. That is, the user should select the name of the restaurant from a list, and all menu items, together with their prices, should be displayed on the screen. The menu should be displayed based on menu item categories.
+
+SELECT * FROM Restaurant R, MenuItem MI WHERE
+R.RestaurantID = "__" AND R.RestaurantID = MI.RestaurantID
+
+#c) For each user‐specified category of restaurant, list the manager names together with the date that the locations have opened. The user should be able to select the category (e.g. Italian or Thai) from a list.
+
+
+
+#d)
+
+#e)
+
+#f)
+
+#g)
+
+#h)
+
+#i)
+
+#j)
+
