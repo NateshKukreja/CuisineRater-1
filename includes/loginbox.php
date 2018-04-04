@@ -144,6 +144,7 @@
                                        </div>
                                     </div>
                                  </div>
+								 
 								<?php
 									if (array_key_exists('email', $_POST) && array_key_exists('pass', $_POST) && array_key_exists('name', $_POST)
 									 && array_key_exists('conf_pass', $_POST) && array_key_exists('rater_type', $_POST)){
@@ -308,26 +309,14 @@
 		<div class="modal-body">
 		   <div class="container-fluid">
 			  <div class="row">
+				<p>An e-mail will be sent to you with a temporary password. Thank you!</p>
 				 <div class="col-xs-12 col-sm-12 col-md-12">
 					<div class="form-group">
 					   <div class="input-group">
 						  <div class="input-group-addon iga2">
 							 <span class="glyphicon glyphicon-envelope"></span>
 						  </div>
-						  <input type="email" class="form-control" placeholder="Enter Your E-Mail ID" name="email">
-					   </div>
-					</div>
-				 </div>
-			  </div>
-
-			  <div class="row">
-				 <div class="col-xs-12 col-sm-12 col-md-12">
-					<div class="form-group">
-					   <div class="input-group">
-						  <div class="input-group-addon iga2">
-							 <span class="glyphicon glyphicon-lock"></span>
-						  </div>
-						  <input type="pass" class="form-control" placeholder="Enter Your New Password" name="newpwd">
+						  <input type="email" class="form-control" placeholder="Enter your registered e-Mail ID" name="email">
 					   </div>
 					</div>
 				 </div>
@@ -337,9 +326,8 @@
 
 		<div class="modal-footer">
 		   <div class="form-group">
-			  <button type="submit" class="button solid burgundy"> Save <span class="glyphicon glyphicon-saved"></span></button>
+			  <button type="submit" class="btn btn-success btn-block btn-lg"> Send <span class="glyphicon glyphicon-send"></span></button>
 
-			  <button type="button" data-dismiss="modal" class="btn btn-lg btn-default"> Cancel <span class="glyphicon glyphicon-remove"></span></button>
 		   </div>
 		</div>
 	 </div>

@@ -111,7 +111,7 @@ else{
 
 <div class="container">
   <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="loginModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -133,10 +133,7 @@ else{
 </div>
 
 <script>
-  
-// Login model onclick
-
 $("#login_link").on('click', function(event){
-$("#myModal").modal("show");
+$("#loginModal").modal("show");
 });
 </script>

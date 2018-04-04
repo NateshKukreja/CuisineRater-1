@@ -109,6 +109,7 @@
 						<div class='col-sm-3 text-center' style='color:white'>
 						<br>
 						<p><a onClick='return deleteUser();' href='#' class='button burgundy solid'><strong>Delete your account!</strong></a></p>
+						<p><a id='changePassLink' class='button burgundy solid'><strong>Change Password</strong></a></p>
 						<p><a href='logout.php' class='button burgundy solid'><strong>Log out!</strong></a></p>
 						</div>
 					</div>
@@ -219,7 +220,7 @@
 			<!-- MENU ITEM REVIEWS -->
 			<h2 style='color:white'>Menu Item Reviews</h2>
 			
-			<table class="table table-hover" style="margin-top:5px;color:white"> <!-- match margin of H2 next to it -->
+			<table class="table" style="margin-top:5px;color:white"> <!-- match margin of H2 next to it -->
 				<!-- Header -->
 				<thead style='color:white'>
 					<tr>
@@ -297,6 +298,35 @@
 		</div>
 	</div>
 </div>
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="changePassModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Change/Forgot Password</h4>
+        </div>
+        <div class="modal-body">
+			<?php include("includes/changePasswordBox.php")?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+</div>
+<script>
+
+$("#changePassLink").on('click', function(event){
+$("#changePassModal").modal("show");
+});
+</script>
 <div class="spacer"></div>
 <?php include("includes/footer.php");?>
 </body>
