@@ -134,6 +134,6 @@ else{
 
 <script>
 $("#login_link").on('click', function(event){
-$("#loginModal").modal("show");
+$("#loginModal").modal({backdrop: 'static'}, "show");
 });
 </script>
