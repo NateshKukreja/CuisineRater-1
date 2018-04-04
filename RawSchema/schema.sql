@@ -3,6 +3,7 @@ CREATE TABLE Rater (
 
     UserID INTEGER,
     email VARCHAR(255) NOT NULL UNIQUE, 
+    password TEXT NOT NULL,
     name VARCHAR(255) NOT NULL UNIQUE,
     signup_day DATE NOT NULL, 
     type INTEGER NOT NULL, 
