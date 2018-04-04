@@ -107,10 +107,12 @@
 						</script>";
 					echo "
 						<div class='col-sm-3 text-center' style='color:white'>
-						<br>
-						<p><a onClick='return deleteUser();' href='#' class='button burgundy solid'><strong>Delete your account!</strong></a></p>
-						<p><a id='changePassLink' class='button burgundy solid'><strong>Change Password</strong></a></p>
-						<p><a href='logout.php' class='button burgundy solid'><strong>Log out!</strong></a></p>
+						<br>";
+						if (isset($name))
+							echo"
+								<p><a onClick='return deleteUser();' href='#' class='button burgundy solid'><strong>Delete your account!</strong></a></p>
+								<p><a id='changePassLink' class='button burgundy solid' style='cursor:pointer'><strong>Change Password</strong></a></p>
+								<p><a href='logout.php' class='button burgundy solid'><strong>Log out!</strong></a></p>
 						</div>
 					</div>
 					";
@@ -324,7 +326,7 @@
 <script>
 
 $("#changePassLink").on('click', function(event){
-$("#changePassModal").modal("show");
+$("#changePassModal").modal({backdrop: 'static'}, "show");
 });
 </script>
 <div class="spacer"></div>
