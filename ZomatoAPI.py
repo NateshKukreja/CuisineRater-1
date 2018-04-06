@@ -233,51 +233,69 @@ class Pyzomato(object):
         results = self.api.get("/search", params)
         return results
     
-API_KEY = "a5f1c6bcc5e82c4d868bd17ccc7c2860"  
+API_KEY = "d6ee90577fe8bc4d4c3eb5ff32d333e9"  
 pyzomato = Pyzomato(API_KEY)
     
 #done -- need to be added to file
 def insertCuisineType(cuisineID):
     for k,v in cuisineID.items():   
-        print('INSERT INTO CUISINE(typeID, description) VALUES ({}, "{}")'.format(k, v))
+        insertStatement = ('INSERT INTO CUISINE(typeID, description) VALUES ({}, "{}")'.format(k, v))
+        
+        file = open("Cuisine.txt", "a")
+        file.write(insertStatement+"\n")
+    
+    print('Insert Cuisine Done!')
+    print()
+    
         
 
 def insertRestaurant(restaurantByCuisine):
         
     for k,v in restaurantByCuisine.items():
         for restaurants in v:
-            print('INSERT INTO RESTAURANT(RestaurantID, Name, type, URL) VALUES ({}, {}, {}, {})'.format(restaurants['restaurant_id'], restaurants['name'], k, restaurants['url']))
+            insertStatement = ('INSERT INTO RESTAURANT(RestaurantID, Name, type, Rating, URL) VALUES ({}, "{}", {}, {}, "{}")'.format(restaurants['restaurant_id'], restaurants['name'], k, restaurants['rating'], restaurants['url']))
+            
+            file = open("Restaurant.txt", "a")
+            file.write(insertStatement+"\n")
+            
+    print('Insert Restaurant Done!')
+    print()
+    
 
 #DONE
 def insertRaterCredibility(pyzomato, restID):
     review = pd.DataFrame(pyzomato.getRestaurantReviews(restID))
     
+    file = open("RaterCredibility.txt", "a")
+    
     for r in review['user_reviews']:
-        #print(r['review']['rating'])
         
-        print(r['review']['id'])
-        print(r['review']['user']['name'])
-        print(r['review']['user']['foodie_level_num'])
+        insertRating(r['review']['id'], r['review']['review_time_friendly'], r['review']['rating'], r['review']['review_text'], restID)
         
+        insertStatement = ('INSERT INTO Rater(UserID, email, name, signup_day, type, password) VALUES ({}, "{}@gmail.com", "{}", "{}", {}, "{}")'.format(r['review']['id'], r['review']['user']['name'].replace(' ',""), r['review']['user']['name'].upper(), r['review']['review_time_friendly'] ,r['review']['user']['foodie_level_num'],'password'))
         
-        print('INSERT INTO Rater(UserID, email, name, signup_day, type, password) VALUES ({}, {}@gmail.com, {}, {}, {}, {})'.format(r['review']['id'], r['review']['user']['name'].replace(' ',""), r['review']['user']['name'].upper(), r['review']['review_time_friendly'] ,r['review']['user']['foodie_level_num'],'password'))
+        file.write(insertStatement+"\n")
         
-        print()
+    file.write("\n")    
+    print('Insert Rater Credibility Done!')
+    print()
             
 #in progress
-def insertRating():
-    UserID INTEGER,
-    varDate DATE,
-    Price DECIMAL(4,2),
-    Food VARCHAR(255),
-    Mood VARCHAR(255),
-    Staff VARCHAR(255),
-    Comments VARCHAR(255),
-    RestaurantID INTEGER
+def insertRating(uID, d, f, c, rID):
     
-    insertStatement = 'INSERT INTO RATING(UserID, varDate, Price, Food, Mood, Staff, Comments, RestaurantID) VALUES ()'
-            
-#print(json.dumps(pyzomato.getCategories(), indent = 2))
+    insertStatement = 'INSERT INTO RATING(UserID, varDate, Food, Comments, RestaurantID) VALUES ({}, {}, "{}", "{}", {})'.format(uID, d, f, c, rID)
+    
+    file = open("Rating.txt", "a")
+    file.write(insertStatement+"\n")
+
+    print('Insert Rating Done!')
+    print()
+
+def insertLocation(pyzomato, restID):
+    locationDetails = pyzomato.getRestaurantDetails(restID)
+    
+    print(locationDetails)
+    
 
 # -- get list of cuisines in Ottawa
 ottawa = pd.DataFrame(pyzomato.getCuisines(295))
@@ -292,114 +310,18 @@ for t in ottawa['cuisines']:
 # -- MAKE THIS CALL, UNCOMMENT
 #insertCuisineType(cuisineID)
 
+restaurantByCuisine={}
 
 
-#print(json.dumps(cuisineID, indent = 2))
-
-restaurantByCuisine = {}
-
-#stores open_date (if available), phone, address, hour_open, hour_close, restaurant_ID
-locationInfo = {}
-
-
-
-'''
 for key in cuisineID:
     restaurantByCuisine[key] = []
     result = pd.DataFrame(pyzomato.search(cuisines = key, q = "Ottawa"))
     for r in result['restaurants']:
-        restaurantByCuisine[key].append({'restaurant_id':r['restaurant']['R']['res_id'],    'name':r['restaurant']['name'], 'cuisineID':key, 'url':r['restaurant']['url']})
-        break
-print(json.dumps(restaurantByCuisine, indent = 2))
-'''
+        restaurantByCuisine[key].append({'restaurant_id':r['restaurant']['R']['res_id'],'name':r['restaurant']['name'], 'cuisineID':key, 'url':r['restaurant']['url'], 'rating':r['restaurant']['user_rating']['aggregate_rating']})
 
-test =   {"451": [{
-      "restaurant_id": 16664530,
-      "name": "Perogies",
-    "url":"perogies"
-    }
-  ],
-  "308": [
-    {
-      "restaurant_id": 18282978,
-      "name": "Asian Palace Ottawa",
-        "url":"asian"
-    }
-  ],
-  "99": [
-    {
-      "restaurant_id": 16663413,
-      "name": "New Pho Bo Ga La",
-        "url":"pho"
-    }]}
 
-#insertRestaurant(test)
+#insertRestaurant(restaurantByCuisine)
 
-insertRaterCredibility(pyzomato,16664530 )
-
-#print(json.dumps(pyzomato.getRestaurantReviews(18282978), indent = 2))
-
-'''
-for k,v in temp.items():
-    print(v['cuisine_id'])
-    restaurantByCuisine[v['cuisine_id']] = []
-    result = pd.DataFrame(pyzomato.search(cuisines = v['cuisine_id'], q = "Ottawa"))
-    for r in result['restaurants']:
-#    print(r['restaurant']['R']['res_id'])
-#    print(r['restaurant']['name'])
-#    print(r['restaurant']['url'])
-#    print(r['restaurant']['location']['address'])
-#    print(r['restaurant']['location']['city'])
-#    print(r['restaurant']['location']['city_id'])
-#    print(r['restaurant']['location']['zipcode'])
-#    print(r['restaurant']['cuisines'])
-        restaurantByCuisine[v['cuisine_id']].append({'restaurant_id':r['restaurant']['R']['res_id'], 'name':r['restaurant']['name']})
-
-print(json.dumps(restaurantByCuisine, indent = 2))
-'''
-#collection_id is the cuisine
-
-{
-      "restaurant": {
-        "R": {
-          "res_id": 16665882
-        },
-        "apikey": "a5f1c6bcc5e82c4d868bd17ccc7c2860",
-        "id": "16665882",
-        "name": "Ginza Ramen",
-        "url": "https://www.zomato.com/ottawa/ginza-ramen-centretown?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1",
-        "location": {
-          "address": "280 Elgin Street, Ottawa K2P 1M2",
-          "locality": "Centretown",
-          "city": "Ottawa",
-          "city_id": 295,
-          "latitude": "45.4173576000",
-          "longitude": "-75.6901093000",
-          "zipcode": "K2P 1M2",
-          "country_id": 37,
-          "locality_verbose": "Centretown, Ottawa"
-        },
-        "switch_to_order_menu": 0,
-        "cuisines": "Ramen, Sushi",
-        "average_cost_for_two": 50,
-        "price_range": 4,
-        "currency": "$",
-        "offers": [],
-        "thumb": "https://b.zmtcdn.com/data/res_imagery/16665882_CHAIN_c236930c489ba2ee96c0d8744b7ecd83_c.jpeg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A",
-        "user_rating": {
-          "aggregate_rating": "3.4",
-          "rating_text": "Average",
-          "rating_color": "CDD614",
-          "votes": "121"
-        },
-        "photos_url": "https://www.zomato.com/ottawa/ginza-ramen-centretown/photos?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1#tabtop",
-        "menu_url": "https://www.zomato.com/ottawa/ginza-ramen-centretown/menu?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1&openSwipeBox=menu&showMinimal=1#tabtop",
-        "featured_image": "https://b.zmtcdn.com/data/res_imagery/16665882_CHAIN_c236930c489ba2ee96c0d8744b7ecd83_c.jpeg",
-        "has_online_delivery": 0,
-        "is_delivering_now": 0,
-        "deeplink": "zomato://restaurant/16665882",
-        "has_table_booking": 0,
-        "events_url": "https://www.zomato.com/ottawa/ginza-ramen-centretown/events#tabtop?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1",
-        "establishment_types": []
-      }
-}
+for k,v in restaurantByCuisine.items():
+    for value in v:
+        insertRaterCredibility(pyzomato,value['restaurant_id'])
