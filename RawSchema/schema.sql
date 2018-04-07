@@ -1,3 +1,12 @@
+CREATE TABLE RaterCredibility (
+
+    type INTEGER,
+    description TEXT NOT NULL,
+    PRIMARY KEY (type)
+
+);
+
+
 CREATE TABLE Rater (
 
     UserID INTEGER,
@@ -8,14 +17,6 @@ CREATE TABLE Rater (
     reputation INTEGER NOT NULL,
     PRIMARY KEY (UserID),
     FOREIGN KEY (type) REFERENCES RaterCredibility(type)
-);
-
-CREATE TABLE RaterCredibility (
-
-    type INTEGER,
-    description TEXT NOT NULL,
-    PRIMARY KEY (type)
-
 );
 
 
@@ -33,24 +34,24 @@ CREATE TABLE Rating (
 
 );
 
-CREATE TABLE Restaurant (
-
-    RestaurantID INTEGER,
-    Name VARCHAR(255) NOT NULL UNIQUE,
-    varType INTEGER,
-    URL VARCHAR(255),
-    PRIMARY KEY (RestaurantID),
-    FOREIGN KEY (varType) REFERENCES Cuisine(typeID)
-
-);
-
-
 CREATE TABLE Cuisine
 (
 
     typeID INTEGER NOT NULL,
     description TEXT NOT NULL,
     PRIMARY KEY (typeID)
+
+);
+
+CREATE TABLE Restaurant (
+
+    RestaurantID INTEGER,
+    Name VARCHAR(255) NOT NULL UNIQUE,
+    varType INTEGER,
+    Rating DECIMAL(1, 2),
+    URL VARCHAR(255),
+    PRIMARY KEY (RestaurantID),
+    FOREIGN KEY (varType) REFERENCES Cuisine(typeID)
 
 );
 
@@ -93,14 +94,15 @@ CREATE TABLE RatingItem
     UserID INTEGER NOT NULL,
     varDate DATE NOT NULL,
     ItemID INTEGER NOT NULL,
-    rating VARCHAR(255),
+    rating INTEGER,
     comments TEXT,
     PRIMARY KEY (UserID, varDate, ItemID),
     FOREIGN KEY (UserID) REFERENCES Rater(UserID),
-    FOREIGN KEY (ItemID) REFERENCES MenuItem(varType),
+    FOREIGN KEY (ItemID) REFERENCES MenuItem(ItemID),
     CONSTRAINT rating CHECK (rating >=0 AND rating <=5)
 
 );
+
 
 
 #a) Display all the information about a user‐specified restaurant. That is, the user should select the name of the restaurant from a list, and the information as contained in the restaurant and location tables should then displayed on the screen.
