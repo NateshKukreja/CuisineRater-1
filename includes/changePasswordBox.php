@@ -1,4 +1,3 @@
-
 <div class="container">
       <div class="row">
          <div class="col-md-6">
@@ -6,7 +5,7 @@
             <div class="panel-heading">
                <ul class="nav nav-tabs">
 			   <li class="active">
-					<a href="#change_pass" data-toggle="tab"> Change Password </a>
+					<a href="#change_pass" data-toggle="tab">Change Password</a>
 				</li>
                </ul>
             </div>
@@ -23,7 +22,7 @@
                                              <div class="input-group-addon iga1">
                                                 <span class="glyphicon glyphicon-lock"></span>
                                              </div>
-                                             <input type="password" class="form-control" placeholder="Current Password" name="pass">
+                                             <input type="password" class="form-control" placeholder="Current Password" name="pass" required>
                                           </div>
                                        </div>
                                     </div>
@@ -36,7 +35,7 @@
                                              <div class="input-group-addon iga1">
                                                 <span class="glyphicon glyphicon-lock"></span>
                                              </div>
-                                             <input type="password" class="form-control" placeholder="New Password" name="new_pass">
+                                             <input type="password" class="form-control" placeholder="New Password" name="new_pass" required>
                                           </div>
                                        </div>
                                     </div>
@@ -49,7 +48,7 @@
                                              <div class="input-group-addon iga1">
                                                 <span class="glyphicon glyphicon-lock"></span>
                                              </div>
-                                             <input type="password" class="form-control" placeholder="Confirm Password" name="conf_pass">
+                                             <input type="password" class="form-control" placeholder="Confirm Password" name="conf_pass" required>
                                           </div>
                                        </div>
                                     </div>
@@ -59,10 +58,8 @@
                                  <div class="col-xs-12 col-sm-12 col-md-12">
                                     <button type="submit" class="btn btn-success btn-block btn-lg"> Save </button>
                                  </div>
-                              </div>
-							  
+                              </div>							  
 						<?php	
-						
 						if (array_key_exists('pass', $_POST)){
 							require("connect.php");
 							$query = "SELECT * FROM Rater WHERE Rater.name='$name'";
@@ -84,14 +81,23 @@
 								if($pass == $entered_pass && $new_pass == $conf_pass){
 									$query = "UPDATE rater SET password = '$new_pass' WHERE name ='$name'";
 									pg_query($query) or die('Query failed: ' . pg_last_error());
-									echo '<p class="alert alert-success"><span class="glyphicon glyphicon-ok-sign"></span> Your password was updated successfully</p>';
+									echo '
+									<script>
+									var messageBox = document.getElementById("messageBox");
+									messageBox.innerHTML =
+									"<p style=\'font-size:20px\' class=\'alert alert-success\'><span  class=\'glyphicon glyphicon-ok-circle\'></span> Your password was updated successfully</p>";							messageBox.classList.remove("hidden");			setTimeout(function(){messageBox.classList.toggle("hidden");}, 7000);
+									</script>									
+									';
 								}
 								else{
-									echo '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove-sign"></span> Please review your information, the information is wrong.</p>';
+									echo '
+									<script>
+									var messageBox = document.getElementById("messageBox");
+									messageBox.innerHTML =
+									"<p style=\'font-size:20px\' class=\'alert alert-danger\'><span class=\'glyphicon glyphicon-remove-circle\'></span> Please review your information, the information is wrong.</p>";								messageBox.classList.remove("hidden");			setTimeout(function(){messageBox.classList.toggle("hidden");}, 7000);
+									</script>	
+									';
 								}
-								}
-								else{
-									echo '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove-sign"></span> Enter your new password or confirmation password.</p>';
 								}
 							}				  
 						?>						
@@ -106,9 +112,4 @@
    </div>
 </div> 
 
-<script>
-  $('#changePassForm').on('submit', function(e) {
-    e.preventDefault(); //Prevents default submit
-  });
-</script>
    

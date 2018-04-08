@@ -22,6 +22,7 @@
 * 18. Shop
 * 19. Blog
 * 20. Widgets
+* 21. Input stars
 * 
 **/
 
@@ -1069,7 +1070,7 @@ textarea {
 }
 
 .welcome-slider .slide .inner  .highest_rated{
-	font-size:25px;
+	font-size:15px;
 }
 
 .header.transparent + .welcome-slider .slide .inner {
@@ -1877,4 +1878,47 @@ textarea {
 		margin-bottom: 27px;
 		margin-top: 27px;
 	}
+}
+
+/* Input stars
+   ========================================================================== */
+   
+.hide {
+  display: none;
+}
+
+.rating {
+    width: 150px;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+	margin-left:20px;
+}
+
+.rating > label {
+    float: right;
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1.1em;
+    cursor: pointer;
+    color: #000;
+}
+
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
 }

@@ -64,7 +64,7 @@
 
 		$name = $GLOBALS['name'];
 		$image = "";
-		$typeQuery = pg_query("SELECT cuisine 
+		$typeQuery = pg_query("SELECT cuisine, restaurant_id 
 		FROM Restaurant R
 		WHERE R.name = '$name'");
 		$typeQuery = pg_fetch_assoc($typeQuery);
@@ -91,21 +91,21 @@
 			else $image = $images[$type3*3 + 0];
 		}
 		$name = $GLOBALS['name'];
+		$restaurant_id = $typeQuery['restaurant_id'];
 ?>
 
 <div class="slide" style="background-image: url(<?php echo 'img/' . $image ?>);">
 	<div class="inner">
 		<div class="container">
 			<div class="row aligned-cols">
-				<div class="col-sm-6 aligned-middle">
-					<h1><?php echo $name ?><span class="highest_rated"> (Rated by <?php echo $raterName ?>)</span></h1>
-					<p class="button-list"><a href="" class="button light">View ratings</a><a href="" class="button burgundy solid">Rate</a></p>
+				<div class="col-sm-6 aligned-middle float-left">
+					<h1><?php echo $name ?></h1>
+					<p class="button-list"><a href="restaurant.php?id=<?php echo $restaurant_id ?>" class="button light">View ratings</a><a href="restaurant.php?id=<?php echo $restaurant_id ?>" class="button burgundy solid">Rate</a></p>
 				</div> <!-- end .col-sm-6 -->
-				<div class="col-sm-6 text-right">
+				<div class="col-sm-6 text-right float-right">
 					<div class="comment-box">
 						<div class="title">Comment</div>
-						<div class="clearfix"><p><?php echo $comment ?></p></div>
-						<div class="info">Info: 00 2345 6780</div>
+						<div class="clearfix"><p><?php echo $comment ?><br><br><span class="highest_rated"> Rated by:<br> <a style="color:#0645AD" href="profile.php?name=<?php echo $raterName ?>"><?php echo $raterName ?></a></span></p></div>
 					</div> <!-- end .hours-box -->
 				</div> <!-- end .col-sm-6 -->
 			</div> <!-- end .row -->

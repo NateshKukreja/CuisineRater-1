@@ -23,7 +23,7 @@
                                           <div class="input-group-addon">
                                              <span class="glyphicon glyphicon-envelope"></span>
                                           </div>
-                                          <input type="text" placeholder="Email" name="email" class="form-control">
+                                          <input type="text" placeholder="Email" name="email" class="form-control" required>
                                        </div>
                                     </div>
                                  </div>
@@ -37,7 +37,7 @@
                                              <span class="glyphicon glyphicon-lock"></span>
                                           </div>
 
-                                          <input type="password" placeholder="Password" name="pass" class="form-control">
+                                          <input type="password" placeholder="Password" name="pass" class="form-control" required>
                                        </div>
                                     </div>
                                  </div>
@@ -78,7 +78,7 @@
                                              <div class="input-group-addon iga1">
                                                 <span class="glyphicon glyphicon-user"></span>
                                              </div>
-                                             <input type="text" class="form-control" placeholder="Enter User Name" name="name">
+                                             <input type="text" class="form-control" placeholder="Enter User Name" name="name" required>
                                           </div>
                                        </div>
                                     </div>
@@ -91,7 +91,7 @@
                                              <div class="input-group-addon iga1">
                                                 <span class="glyphicon glyphicon-envelope"></span>
                                              </div>
-                                             <input type="email" class="form-control" placeholder="Enter E-Mail" name="email">
+                                             <input type="email" class="form-control" placeholder="Enter E-Mail" name="email" required>
                                           </div>
                                        </div>
                                     </div>
@@ -104,7 +104,7 @@
                                              <div class="input-group-addon iga1">
                                                 <span class="glyphicon glyphicon-lock"></span>
                                              </div>
-                                             <input type="password" class="form-control" placeholder="Enter Password" name="pass">
+                                             <input type="password" class="form-control" placeholder="Enter Password" name="pass" required>
                                           </div>
                                        </div>
                                     </div>
@@ -117,7 +117,7 @@
                                              <div class="input-group-addon iga1">
                                                 <span class="glyphicon glyphicon-lock"></span>
                                              </div>
-                                             <input type="password" class="form-control" placeholder="Confirm Password" name="conf_pass">
+                                             <input type="password" class="form-control" placeholder="Confirm Password" name="conf_pass" required>
                                           </div>
                                        </div>
                                     </div>
