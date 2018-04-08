@@ -138,7 +138,15 @@ Select M.name, MI.price, L.manager_name, H.weekdayOpen, H.weekendOpen, R.url FRO
 
 #d)
 
-#e)
+#e)'For each type of restaurant (e.g. Indian or Irish) and the category of menu item (appetiser, main
+or desert), list the average prices of menu items for each category.'
+SELECT Restaurant.varType, MenuItem.varType, AVG(MenuItem.price)
+	FROM Restaurant
+	INNER JOIN MenuItem
+		ON MenuItem.restaurant_id=MenuItem.restaurant_id
+	WHERE Restaurant.varType= 1 --Replace '1' with user-specified cuisine type
+	GROUP BY Restaurant.varType, MenuItem.varType
+	ORDER BY Restaurant.varType, MenuItem.varType;
 
 #f)
 'Find the total number of rating for each restaurant, for each rater. That is, the data should be
@@ -155,7 +163,7 @@ SELECT Rater.name, Restaurant.name, COUNT(Rating.post_date), AVG((Rating.food+Ra
     GROUP BY Restaurant.name, Rater.name
     ORDER BY Rater.name, Restaurant.name;
 
-#g)Display the details of the restaurants that have not been rated in January 2015. That is, you should display the name of the restaurant together with the phone number and the type of food.
+#g)'Display the details of the restaurants that have not been rated in January 2015. That is, you should display the name of the restaurant together with the phone number and the type of food.'
 SELECT Restaurant.name, Restaurant.url, Cuisine.description, Location.phone_number, Location.phone_number, Location.street_address, Location.hour_open, Location.hour_close
     FROM Restaurant
     INNER JOIN Location
@@ -232,28 +240,36 @@ SELECT Rater.name, Rater.signup_day, COUNT(Rating.user_id), AVG(temp.innerAvg) a
     GROUP BY Rater.name, Rater.signup_day
     ORDER BY avgRate DESC;
 
-#m)SELECT Rater.name, Rating.comments, MenuItem.name, MenuItem.price, temp.rateCount
-	FROM Rater
-	INNER JOIN Rating
-		ON Rater.UserID=Rating.UserID
-	INNER JOIN RatingItem itemRate
-		ON Rater.UserID=itemRate.UserID
-	INNER JOIN MenuItem
-		ON MenuItem.item_id=itemRate.item_id
-	INNER JOIN
-		(SELECT Rater2.UserID uuid, COUNT(rate2.UserID) rateCount
-			FROM Rater Rater2
-			INNER JOIN Rating rate2
-				ON Rater2.UserID=rate2.UserID
-			INNER JOIN Location loc2
-				ON rate2.location_id=loc2.location_id
-			WHERE loc2.location_id = 1 --Replace '1' with location
-			GROUP BY Rater2.UserID
-			ORDER BY rateCount) temp
-		ON Rater.UserID=temp.uuid
+#m)'Find the names and reputations of the raters that rated a specific restaurant (say Restaurant Z)
+the most frequently. Display this information together with their comments and the names and
+prices of the menu items they discuss. (Here Restaurant Z refers to a restaurant of your own
+choice, e.g. Ma Cuisine).'
+SELECT Rater.name, Rating.Comments, MenuItem.name, MenuItem.price, temp.rateCount
+FROM Rater
+INNER JOIN Rating
+  ON Rater.UserID=Rating.UserID
+INNER JOIN RatingItem itemRate
+  ON Rater.UserID=itemRate.UserID
+INNER JOIN MenuItem
+  ON MenuItem.ItemID=itemRate.ItemID
+INNER JOIN
+  (SELECT Rater2.UserID uuid, COUNT(Rating2.UserID) rateCount
+    FROM Rater Rater2
+    INNER JOIN Rating Rating2
+      ON Rater2.UserID=Rating2.UserID
+    INNER JOIN Location
+      ON Rating2.LocationID=Location.LocationID
+    WHERE Location.LocationID = 1 --Replace '1' with location
+    GROUP BY Rater2.UserID
+    ORDER BY rateCount) temp
+  ON Rater.UserID=temp.uuid
 
 
-#n)SELECT Rater.name, Rater.email, (Rating.food+Rating.mood+Rating.price+Rating.staff) total
+
+#n)'Find the names and emails of all raters who gave ratings that are lower than that of a rater with
+a name called John, in terms of the combined rating of Price, Food, Mood and Staff. (Note that
+there may be more than one rater with this name).'
+SELECT Rater.name, Rater.email, (Rating.food+Rating.mood+Rating.price+Rating.staff) total
 	FROM Rater
 	INNER JOIN Rating
 		ON Rater.UserID=Rating.UserID
@@ -264,4 +280,4 @@ SELECT Rater.name, Rater.signup_day, COUNT(Rating.user_id), AVG(temp.innerAvg) a
 				ON Rating2.UserID=Rater2.UserID
 			WHERE Rater2.name='Patricia') -- Replace name with user's name to compare to
 			-- WHERE Rater2.UserID= 1 ) -- Replace with user's id to compare to
-	ORDER BY total, Rater.name
+	order by total, Rater.name
