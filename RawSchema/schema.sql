@@ -129,7 +129,7 @@ SELECT L.LocationID, R.Name, L.street_address, L.manager_name, L.first_open
 
 #d) Given a user‐specified restaurant, find the name of the most expensive menu item. List this information together with the name of manager, the opening hours, and the URL of the restaurant. The user should be able to select the restaurant name (e.g. El Camino) from a list.
 
-Select M.name, MI.price, L.manager_name, H.weekdayOpen, H.weekendOpen, R.url FROM 
+Select M.name, MI.price, L.manager_name, H.weekdayOpen, H.weekendOpen, R.url FROM
         final_project.Restaurant R, final_project.Location L, final_project.Hours H, final_project.MenuItem MI WHERE
         MI.price >= all(Select MI1.price FROM final_project.MenuItem MI1 WHERE
                 MI1.restaurantId = R.restaurantId) AND
@@ -231,3 +231,37 @@ SELECT Rater.name, Rater.signup_day, COUNT(Rating.user_id), AVG(temp.innerAvg) a
         ON Rating.user_id=temp.r2_uid AND Rating.varDate=temp.r2_pd
     GROUP BY Rater.name, Rater.signup_day
     ORDER BY avgRate DESC;
+
+#m)SELECT Rater.name, Rating.comments, MenuItem.name, MenuItem.price, temp.rateCount
+	FROM Rater
+	INNER JOIN Rating
+		ON Rater.UserID=Rating.UserID
+	INNER JOIN RatingItem itemRate
+		ON Rater.UserID=itemRate.UserID
+	INNER JOIN MenuItem
+		ON MenuItem.item_id=itemRate.item_id
+	INNER JOIN
+		(SELECT Rater2.UserID uuid, COUNT(rate2.UserID) rateCount
+			FROM Rater Rater2
+			INNER JOIN Rating rate2
+				ON Rater2.UserID=rate2.UserID
+			INNER JOIN Location loc2
+				ON rate2.location_id=loc2.location_id
+			WHERE loc2.location_id = 1 --Replace '1' with location
+			GROUP BY Rater2.UserID
+			ORDER BY rateCount) temp
+		ON Rater.UserID=temp.uuid
+
+
+#n)SELECT Rater.name, Rater.email, (Rating.food+Rating.mood+Rating.price+Rating.staff) total
+	FROM Rater
+	INNER JOIN Rating
+		ON Rater.UserID=Rating.UserID
+	WHERE (Rating.food+Rating.mood+Rating.price+Rating.staff) < ALL
+		(SELECT (Rating2.food+Rating2.mood+Rating2.price+Rating2.staff)
+			FROM Rating Rating2
+			INNER JOIN Rater Rater2
+				ON Rating2.UserID=Rater2.UserID
+			WHERE Rater2.name='Patricia') -- Replace name with user's name to compare to
+			-- WHERE Rater2.UserID= 1 ) -- Replace with user's id to compare to
+	ORDER BY total, Rater.name
