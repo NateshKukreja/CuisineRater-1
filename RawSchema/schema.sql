@@ -143,7 +143,7 @@ or desert), list the average prices of menu items for each category.'
 SELECT Restaurant.varType, MenuItem.varType, AVG(MenuItem.price)
 	FROM Restaurant
 	INNER JOIN MenuItem
-		ON MenuItem.restaurant_id=MenuItem.restaurant_id
+		ON MenuItem.RestaurantID=MenuItem.RestaurantID
 	WHERE Restaurant.varType= 1 --Replace '1' with user-specified cuisine type
 	GROUP BY Restaurant.varType, MenuItem.varType
 	ORDER BY Restaurant.varType, MenuItem.varType;
@@ -152,12 +152,12 @@ SELECT Restaurant.varType, MenuItem.varType, AVG(MenuItem.price)
 'Find the total number of rating for each restaurant, for each rater. That is, the data should be
 grouped by the restaurant, the specific raters and the numeric ratings they have received.'
 
-SELECT Rater.name, Restaurant.name, COUNT(Rating.post_date), AVG((Rating.food+Rating.price+Rating.mood+Rating.staff)/4.0)
+SELECT Rater.name, Restaurant.name, COUNT(Rating.varDate), AVG((Rating.food+Rating.price+Rating.mood+Rating.staff)/4.0)
     FROM Restaurant
     INNER JOIN Location
         ON Restaurant.RestaurantID=Location.RestaurantID
     INNER JOIN Rating
-        ON Location.LocationID=Rating.LocationID
+        ON Location.LocationID=Rating.RestaurantID
     INNER JOIN Rater
         ON Rating.UserID=Rater.UserID
     GROUP BY Restaurant.name, Rater.name
@@ -174,7 +174,7 @@ SELECT Restaurant.name, Restaurant.url, Cuisine.description, Location.phone_numb
         (SELECT location2.LocationID
             FROM Location location2
             INNER JOIN Rating rating2
-                ON location2.LocationID=rating2.LocationID
+                ON location2.LocationID=rating2.RestaurantID
             WHERE EXTRACT(month from rating2.varDate) = 1 -- Replace '1' with month from 1-12
                 AND EXTRACT(year from rating2.varDate) = 2015 ) -- Replace '2015' with year
 #h)
@@ -201,30 +201,30 @@ refers to any restaurant type of your choice, e.g. Indian or Burger.)'
 SELECT Cuisine.description, Restaurant.name, Rater.name, temp.avgRate
     FROM Restaurant
     INNER JOIN Cuisine
-        ON Restaurant.varType=ct.typeID
+        ON Restaurant.varType=Cuisine.typeID
     INNER JOIN Location
         ON Restaurant.RestaurantID=Location.RestaurantID
     INNER JOIN Rating
-        ON loc.RestaurantID=Rating.RestaurantID
+        ON Location.RestaurantID=Rating.RestaurantID
     INNER JOIN Rater
         ON Rater.UserID=Rater.UserID
     INNER JOIN
-        (SELECT loction2.LocationID locationid2, AVG(rate2.food) avgRate
+        (SELECT location2.LocationID locationid2, AVG(rating2.food) avgRate
             FROM Rating rating2
-            INNER JOIN Location loction2
-                ON rating2.location_id=location2.LocationID
+            INNER JOIN Location location2
+                ON rating2.RestaurantID =location2.LocationID
             GROUP BY locationid2) temp
         ON Location.LocationID=locationid2
     WHERE temp.avgRate >= ALL
         (SELECT AVG(rating2.food) avgRate
             FROM Rating rating2
-            INNER JOIN Location loction2
-                ON rating2.LocationID=loc2.LocationID
+            INNER JOIN Location location2
+                ON rating2.RestaurantID=location2.LocationID
             INNER JOIN Restaurant restaurant2
                 ON restaurant2.RestaurantID=location2.RestaurantID
             INNER JOIN Cuisine cuisine2
                 ON restaurant2.varType=cuisine2.typeID
-            WHERE cuisine2.varType=Cuisine.typeID
+            WHERE cuisine2.typeID=Cuisine.typeID
             GROUP BY location2.LocationID)
     ORDER BY Cuisine.description
 #j)
