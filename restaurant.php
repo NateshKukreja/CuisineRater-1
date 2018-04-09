@@ -271,7 +271,7 @@
 							}
 							echo "
 								<tr style='color:white;'>
-									<td style='color:white;'>$iName</td>
+									<td style='color:white;'><a href='menuItem.php?id=" . $itemid . "'>$iName</a></td>
 									<td style='color:white;'>\$$price</td>
 									<td style='color:white;'>$description</td>
 									<td style='color:white;'>$itemAvgRating</td>

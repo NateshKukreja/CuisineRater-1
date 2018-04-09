@@ -23,98 +23,6 @@
 			</div> <!-- end .slides -->
 		</div> <!-- end .welcome-slider -->
 
-				<div class="section white">
-			<div class="inner">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-4">
-							<h2><small>We are here to help you pick the best choice</small>Quick Searches</h2>
-							<p>Discover restaurants by type of meal</p>
-						</div> <!-- end .col-sm-4 -->
-						<div class="col-sm-4">
-							<div class="row">
-								<div class="col-sm-3">
-									<img src="img/category_1.png" alt="alt text here" class="img-responsive">
-									<small class="form-text text-muted">Breakfast</small>
-								</div>
-							
-								<div class="col-sm-3">
-									<img src="img/category_2.png" alt="alt text here" class="img-responsive">
-									<small class="form-text text-muted">Dinner</small>
-								</div>
-								<div class="col-sm-3">
-									<img src="img/category_3.png" alt="alt text here" class="img-responsive">
-									<small class="form-text text-muted">Bars/Night Clubs</small>
-								</div>
-							</div> <!-- end .row -->
-							<div class="column-spacer"></div>
-							<div class="row">
-								<div class="col-sm-3">
-									<img src="img/category_4.png" alt="alt text here" class="img-responsive">
-									<small class="form-text text-muted">Lunch</small>
-								</div>
-								<div class="col-sm-3">
-									<img src="img/category_5.png" alt="alt text here" class="img-responsive">
-									<small class="form-text text-muted">Coffee</small>
-								</div>
-								<div class="col-sm-3">
-									<img src="img/category_6.png" alt="alt text here" class="img-responsive">
-									<small class="form-text text-muted">Desert</small>
-								</div>
-							</div>
-						</div> <!-- end .col-sm-4 -->
-						<div class="col-sm-4">
-							<h2>Other</h2>
-							<p><a>Find other type of meal</a></p>
-						</div> <!-- end .col-sm-4 -->
-					</div> <!-- end .row -->
-				</div> <!-- end .container -->
-			</div> <!-- end .inner -->
-		</div> <!-- end .section -->
-
-		<div class="section white">
-			<div class="partial-background" style="background-image: url('img/background04.jpg');"></div>
-			<div class="inner">
-				<div class="container">
-					<h2 class="text-center white">Specialties<small>From Our Chefs</small></h2>
-					<div class="specialties-slider">
-						<div class="specialty">
-							<div class="image">
-								<img src="img/specialty01.jpg" alt="alt text here" class="img-responsive">
-								<div class="overlay"><a href="" class="button white">See More</a></div>
-							</div> <!-- end .image -->
-							<h5>Tasty Breakfast</h5>
-							<p>Lorem ipsum dolor sit amet, consetetur sadrat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-						</div> <!-- end .specialty -->
-						<div class="specialty">
-							<div class="image">
-								<img src="img/specialty02.jpg" alt="alt text here" class="img-responsive">
-								<div class="overlay"><a href="" class="button white">See More</a></div>
-							</div> <!-- end .image -->
-							<h5>Blueberry Toast</h5>
-							<p>Lorem ipsum dolor sit amet, consetetur sadrat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-						</div> <!-- end .specialty -->
-						<div class="specialty">
-							<div class="image">
-								<img src="img/specialty03.jpg" alt="alt text here" class="img-responsive">
-								<div class="overlay"><a href="" class="button white">See More</a></div>
-							</div> <!-- end .image -->
-							<h5>Healthy Steak</h5>
-							<p>Lorem ipsum dolor sit amet, consetetur sadrat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-						</div> <!-- end .specialty -->
-						<div class="specialty">
-							<div class="image">
-								<img src="img/specialty04.jpg" alt="alt text here" class="img-responsive">
-								<div class="overlay"><a href="" class="button white">See More</a></div>
-							</div> <!-- end .image -->
-							<h5>Creamy Desert</h5>
-							<p>Lorem ipsum dolor sit amet, consetetur sadrat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-						</div> <!-- end .specialty -->
-					</div> <!-- end .specialty-slider -->
-				</div> <!-- end .container -->
-			</div> <!-- end .inner -->
-		</div> <!-- end .section -->
-
 		<div class="section white border-top">
 			<div class="inner">
 				<div class="container">
@@ -123,7 +31,6 @@
 							<h2>Menu Items</h2>
 							<p>Find menus that are served from any restaurant.</p>
 							<p>You will always enjoy new menus that you never though of.</p>
-							<a href="" class="button">Full Menu</a>
 						</div> <!-- end .col-sm-3 -->
 						<div class="column-spacer"></div>
 						<div class="col-sm-9">
@@ -205,6 +112,7 @@
 						<div class="col-sm-6">
 							<h2>Have a restaurant or cuisine in mind? If you cannot find it, you can always add it to our website.</h2>
 							<a href="add_resto.php" class="button solid burgundy">Add a restaurant</a>
+							<a href="cuisines.php?query=" class="button solid burgundy">View all restaurants</a>
 						</div> <!-- end .col-sm-6 -->
 					</div> <!-- end .row -->
 				</div> <!-- end .container -->
