@@ -1,0 +1,2 @@
+INSERT INTO RESTAURANT(RestaurantID, Name, varType, Rating, URL) VALUES(18474269,'Ze Kitchen',38,0,'https://www.zomato.com/gatineau-region/ze-kitchen-masson-angers?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1');
+INSERT INTO RESTAURANT(RestaurantID, Name, varType, Rating, URL) VALUES(18474269,'Ze Kitchen',45,0,'https://www.zomato.com/gatineau-region/ze-kitchen-masson-angers?utm_source=api_basic_user&utm_medium=api&utm_campaign=v2.1');

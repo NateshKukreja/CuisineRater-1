@@ -1,0 +1,2 @@
+INSERT INTO LOCATION(LocationID, first_open, manager_name, phone_number, street_address, hour_open, hour_close, RestaurantID) VALUES (0, '2002-3-14', 'Natesh Smith', '613-9822381', '2607 Old Montreal Road, Ottawa K4C 1A2', 630, 1100, 18474269);
+INSERT INTO LOCATION(LocationID, first_open, manager_name, phone_number, street_address, hour_open, hour_close, RestaurantID) VALUES (0, '1997-9-7', 'Adam Smith', '613-7615874', '2607 Old Montreal Road, Ottawa K4C 1A2', 630, 1100, 18474269);
