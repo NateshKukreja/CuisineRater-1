@@ -1,41 +1,36 @@
-
-
-
-
-
-
-#a) Display all the information about a user‐specified restaurant. That is, the user should select the name of the restaurant from a list, and the information as contained in the restaurant and location tables should then displayed on the screen.
+#a) 'Display all the information about a user‐specified restaurant. That is, the user should select the name of the
+ restaurant from a list, and the information as contained in the restaurant and location tables should then displayed on the screen.'
 
 SELECT * FROM Restaurant R, Location L WHERE
 L.LocationID = "__" AND L.RestaurantID = R.RestaurantID;
 
-#b) Display the full menu of a specific restaurant. That is, the user should select the name of the restaurant from a list, and all menu items, together with their prices, should be displayed on the screen. The menu should be displayed based on menu item categories.
+#b) 'Display the full menu of a specific restaurant. That is, the user should select the name of the restaurant from a list,
+and all menu items, together with their prices, should be displayed on the screen. The menu should be displayed based on menu item categories.'
 
 SELECT * FROM Restaurant R, MenuItem MI WHERE
 R.RestaurantID = "__" AND R.RestaurantID = MI.RestaurantID;
 list the manager names together with the date that the locations have opened. The user should be able to select the category (e.g. Italian or Thai) from a list.
 
 
-#c) For each user‐specified category of restaurant, list the manager names together with the date that the locations have opened. The user should be able to select the category (e.g. Italian or Thai) from a list.
+ #c) 'For each user‐specified category of restaurant, list the manager names together with the date
+that the locations have opened. The user should be able to select the category (e.g. Italian or
+Thai) from a list'
 
-SELECT L.LocationID, R.Name, L.street_address, L.manager_name, L.first_open
-    FROM Restaurant AS R
-    INNER JOIN Cuisine AS C
-        ON R.varType=C.typeID
-    INNER JOIN Location AS L
-        ON R.restaurant_id=L.restaurant_id
-    ORDER BY L.first_open DESC, R.Name;
+Select L.manager_name, L.first_open FROM Location L WHERE
+	L.restaurantId = (Select R.restaurantId FROM Restaurant R WHERE
+		R.varType = 1);
 
-#d) Given a user‐specified restaurant, find the name of the most expensive menu item. List this information together with the name of manager, the opening hours, and the URL of the restaurant. The user should be able to select the restaurant name (e.g. El Camino) from a list.
+#d) 'Given a user‐specified restaurant, find the name of the most expensive menu item. List this information together
+with the name of manager, the opening hours, and the URL of the restaurant.
+The user should be able to select the restaurant name (e.g. El Camino) from a list.'
 
 Select M.name, MI.price, L.manager_name, H.weekdayOpen, H.weekendOpen, R.url FROM
         final_project.Restaurant R, final_project.Location L, final_project.Hours H, final_project.MenuItem MI WHERE
         MI.price >= all(Select MI1.price FROM final_project.MenuItem MI1 WHERE
                 MI1.restaurantId = R.restaurantId) AND
             R.restaurantId = L.restaurantId AND L.hoursId = H.hoursId AND
-            MI.restaurantId = R.restaurantId AND R.name ='Make You Fat';
+            MI.restaurantId = R.restaurantId AND R.name ='Pure Kitchen';
 
-#d)
 
 #e)'For each type of restaurant (e.g. Indian or Irish) and the category of menu item (appetiser, main
 or desert), list the average prices of menu items for each category.'
@@ -62,7 +57,8 @@ SELECT Rater.name, Restaurant.name, COUNT(Rating.varDate), AVG((Rating.food+Rati
     GROUP BY Restaurant.name, Rater.name
     ORDER BY Rater.name, Restaurant.name;
 
-#g)'Display the details of the restaurants that have not been rated in January 2015. That is, you should display the name of the restaurant together with the phone number and the type of food.'
+#g)'Display the details of the restaurants that have not been rated in January 2015.
+That is, you should display the name of the restaurant together with the phone number and the type of food.'
 SELECT Restaurant.name, Restaurant.url, Cuisine.description, Location.phone_number, Location.phone_number, Location.street_address, Location.hour_open, Location.hour_close
     FROM Restaurant
     INNER JOIN Location
@@ -127,7 +123,14 @@ SELECT Cuisine.description, Restaurant.name, Rater.name, temp.avgRate
             GROUP BY location2.LocationID)
     ORDER BY Cuisine.description
 #j)
-#k)'Find the names, join‐date and reputations of the raters that give the highest overall rating, in terms of the Food and the Mood of restaurants. Display this information together with the names of the restaurant and the dates the ratings were done.'
+'Provide a query to determine whether Type Y restaurants are “more popular” than other
+restaurants.  (Here, Type Y refers to any restaurant type of your choice, e.g. Indian or Burger.)
+Yes, this query is open to your own interpretation!'
+SELECT R.Name FROM Restaurant R WHERE R.varType = 1
+ORDER BY(R.rating) LIMIT 5
+
+#k)'Find the names, join‐date and reputations of the raters that give the highest overall rating, in terms of the
+Food and the Mood of restaurants. Display this information together with the names of the restaurant and the dates the ratings were done.'
 SELECT Rater.name, Rater.signup_day, COUNT(Rating.user_id), AVG(temp.innerAvg) as avgRate
     FROM Rater
     INNER JOIN Rating
@@ -138,6 +141,17 @@ SELECT Rater.name, Rater.signup_day, COUNT(Rating.user_id), AVG(temp.innerAvg) a
         ON Rating.user_id=temp.r2_uid AND Rating.varDate=temp.r2_pd
     GROUP BY Rater.name, Rater.signup_day
     ORDER BY avgRate DESC;
+
+#l)'Find the names and reputations of the raters that give the highest overall rating, in terms of the
+Food or the Mood of restaurants. Display this information together with the names of the
+restaurant and the dates the ratings were done.'
+SELECT rater_.name, rater_.signup_day, rater_.reputation, R.name, rating_.vardate FROM Rater rater_, Restaurant R, Rating rating_ WHERE
+	rater_.userId IN (SELECT rater_1.userId FROM Rater rater_1 WHERE
+		(SELECT AVG(mood) FROM Rating rating_2 WHERE rating_2.userId = rater_1.userId)
+			>= ALL(SELECT AVG(mood) FROM Rating rating_3 GROUP BY rating_3.userId)
+		OR (SELECT AVG(food) FROM Rating rating_4 WHERE rating_4.userId = rater_1.userId)
+			>= ALL(SELECT AVG(food) FROM Rating rating_5 GROUP BY rating_5.userId))
+		AND rating_.userId = rater_.userId AND rating_.restaurantId = R.restaurantId;
 
 #m)'Find the names and reputations of the raters that rated a specific restaurant (say Restaurant Z)
 the most frequently. Display this information together with their comments and the names and
@@ -181,68 +195,16 @@ SELECT Rater.name, Rater.email, (Rating.food+Rating.mood+Rating.price+Rating.sta
 			-- WHERE Rater2.UserID= 1 ) -- Replace with user's id to compare to
 	order by total, Rater.name
 
--- c. For each user‐specified category of restaurant, list the manager names together with the date
--- that the locations have opened. The user should be able to select the category (e.g. Italian or
--- Thai) from a list
-
---CONFIRMED
-
-
-Select L.manager_name, L.first_open FROM Location L WHERE
-	L.restaurantId = (Select R.restaurantId FROM Restaurant R WHERE
-		R.varType = 1);
-
--- d. Given a user‐specified restaurant, find the name of the most expensive menu item. List this
--- information together with the name of manager, the opening hours, and the URL of the
--- restaurant. The user should be able to select the restaurant name (e.g. El Camino) from a list.
-
---CONFIRMED
-Select menu.name, menu.price, L.manager_name, L.hour_open, L.hour_close, R.url FROM 
-		Restaurant R, Location L, MenuItem menu WHERE
-		menu.price >= all(Select menu1.price FROM MenuItem menu1 WHERE
-				menu1.restaurantId = R.restaurantId) AND
-			R.restaurantId = L.restaurantId AND
-			menu.restaurantId = R.restaurantId AND R.name ='Make You Fat';
+#o)
+'Find the names, types and emails of the raters that provide the most diverse ratings. Display this
+information together with the restaurants names and the ratings. For example, Jane Doe may
+have rated the Food at the Imperial Palace restaurant as a 1 on 1 January 2015, as a 5 on 15
+January 2015, and a 3 on 4 February 2015.  Clearly, she changes her mind quite often.'
 
 
-
-
--- j. Provide a query to determine whether Type Y restaurants are “more popular” than other
--- restaurants.  (Here, Type Y refers to any restaurant type of your choice, e.g. Indian or Burger.)
--- Yes, this query is open to your own interpretation!
-
---PLAUSIBLE
-
-SELECT R.Name FROM Restaurant R WHERE R.varType = 1 
-ORDER BY(R.rating) LIMIT 5
-
-	-- l. Find the names and reputations of the raters that give the highest overall rating, in terms of the
--- Food or the Mood of restaurants. Display this information together with the names of the
--- restaurant and the dates the ratings were done.
-
---CONFIRMED
-
-SELECT rater_.name, rater_.signup_day, rater_.reputation, R.name, rating_.vardate FROM Rater rater_, Restaurant R, Rating rating_ WHERE
-	rater_.userId IN (SELECT rater_1.userId FROM Rater rater_1 WHERE
-		(SELECT AVG(mood) FROM Rating rating_2 WHERE rating_2.userId = rater_1.userId)
-			>= ALL(SELECT AVG(mood) FROM Rating rating_3 GROUP BY rating_3.userId)
-		OR (SELECT AVG(food) FROM Rating rating_4 WHERE rating_4.userId = rater_1.userId)
-			>= ALL(SELECT AVG(food) FROM Rating rating_5 GROUP BY rating_5.userId))
-		AND rating_.userId = rater_.userId AND rating_.restaurantId = R.restaurantId;
-		
--- o. Find the names, types and emails of the raters that provide the most diverse ratings. Display this
--- information together with the restaurants names and the ratings. For example, Jane Doe may
--- have rated the Food at the Imperial Palace restaurant as a 1 on 1 January 2015, as a 5 on 15
--- January 2015, and a 3 on 4 February 2015.  Clearly, she changes her mind quite often.
-
--- use standard deviaton
-
-
-
-SELECT rater_.name, rater_.type, rater_.email, R.name, rating_.food, rating_.price, 
+SELECT rater_.name, rater_.type, rater_.email, R.name, rating_.food, rating_.price,
 	rating_.mood, rating_.staff, rating_.comments FROM Rater rater_, Rating rating_, Restaurant R WHERE
 		rater_.userId IN (SELECT rater_1.userId FROM Rater rater_1 GROUP BY rater_1.userId HAVING
-			(SELECT max(stddev) FROM(SELECT stddev(r8ing.mood + r8ing.staff + r8ing.price +r8ing.food) as stddev 
+			(SELECT max(stddev) FROM(SELECT stddev(r8ing.mood + r8ing.staff + r8ing.price +r8ing.food) as stddev
 				FROM Rating r8ing WHERE r8ing.userId = rater_1.userId GROUP BY r8ing.restaurantId) as temp_)
 			>= ALL((SELECT max(stddev) FROM (SELECT stddev(r8ing_1.mood + r8ing_1.staff + r8ing_1.price +r8ing_1.food) FROM Rating r8ing_1 GROUP BY r8ing_1.userId, r8ing_1.restaurantId) as temp_)))
-	
