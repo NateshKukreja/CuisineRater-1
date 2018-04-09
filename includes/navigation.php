@@ -70,7 +70,7 @@ else{
 					<li>
 						<a style="cursor:pointer">About</a>
 						<ul>
-							<li><a href="creators.html">Creators</a></li>
+							<li><a href="creators.php">Creators</a></li>
 						</ul>
 					</li>
 					<li>

@@ -110,9 +110,9 @@
 						<br>";
 						if (isset($name))
 							echo"
-								<p><a onClick='return deleteUser();' href='#' class='button burgundy solid'><strong>Delete your account!</strong></a></p>
-								<p><a id='changePassLink' class='button burgundy solid' style='cursor:pointer'><strong>Change Password</strong></a></p>
-								<p><a href='logout.php' class='button burgundy solid'><strong>Log out!</strong></a></p>
+								<a style='margin-bottom:10px' href='logout.php' class='button burgundy solid'><strong>Log out!</strong></a><br>
+								<a style='margin-bottom:10px' id='changePassLink' class='button burgundy solid' style='cursor:pointer'><strong>Change Password</strong></a><br>								
+								<a style='margin-bottom:10px' onClick='return deleteUser();' href='#' class='button burgundy solid'><strong>Delete your account!</strong></a><br>
 						</div>
 					</div>
 					";
@@ -131,7 +131,7 @@
 			<table class="table" style="margin-top:5px;"> <!-- match margin of H2 next to it -->
 				<!-- Header -->
 				<thead>
-					<tr>
+					<tr style='background-color:white;padding:5px;'>
 						<?php 
 							$name = $_GET['name'];
 							$sm = "";
@@ -139,7 +139,7 @@
 								$sm = $_GET['sm'];
 							}
 							echo "
-							<th style='color:#c63939'><a href='profile.php?name=$name&sr=date&sm=$sm'>Date</a>&nbsp;&nbsp;</th>
+							<th style='color:#c63939'><a style='margin-left:5px;' href='profile.php?name=$name&sr=date&sm=$sm'>Date</a>&nbsp;&nbsp;</th>
 							<th style='color:#c63939'><a href='profile.php?name=$name&sr=name&sm=$sm'>Name</a>&nbsp;&nbsp;</th>
 							<th style='color:#c63939'><a href='profile.php?name=$name&sr=food&sm=$sm'>Food</a>&nbsp;&nbsp;</th>
 							<th style='color:#c63939'><a href='profile.php?name=$name&sr=mood&sm=$sm'>Mood</a>&nbsp;&nbsp;</th>
@@ -227,8 +227,8 @@
 			
 			<table class="table" style="margin-top:5px;color:white"> <!-- match margin of H2 next to it -->
 				<!-- Header -->
-				<thead style='color:white'>
-					<tr>
+				<thead>
+					<tr style='background-color:white;padding:5px;'>
 						<?php 
 							$name = $_GET['name'];
 							$sr = "";
@@ -236,7 +236,7 @@
 								$sr = $_GET['sr'];
 							}
 							echo "
-							<th style='color:#c63939'><a href='profile.php?name=$name&sr=$sr&sm=date'>Date</a></th>
+							<th style='color:#c63939'><a style='margin-left:5px;' href='profile.php?name=$name&sr=$sr&sm=date'>Date</a></th>
 							<th style='color:#c63939'><a href='profile.php?name=$name&sr=$sr&sm=name'>Item</a></th>
 							<th style='color:#c63939'><a href='profile.php?name=$name&sr=$sr&sm=price'>Price</a></th>
 							<th style='color:#c63939'><a href='profile.php?name=$name&sr=$sr&sm=type'>Type</a></th>

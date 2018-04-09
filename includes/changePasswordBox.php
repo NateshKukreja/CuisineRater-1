@@ -85,7 +85,9 @@
 									<script>
 									var messageBox = document.getElementById("messageBox");
 									messageBox.innerHTML =
-									"<p style=\'font-size:20px\' class=\'alert alert-success\'><span  class=\'glyphicon glyphicon-ok-circle\'></span> Your password was updated successfully</p>";							messageBox.classList.remove("hidden");			setTimeout(function(){messageBox.classList.toggle("hidden");}, 7000);
+									"<p style=\'font-size:20px\' class=\'alert alert-success\'><span  class=\'glyphicon glyphicon-ok-circle\'></span> Your password was updated successfully</p><br><br>";
+									messageBox.classList.remove("hidden");
+									setTimeout(function(){messageBox.classList.toggle("hidden");}, 7000);
 									</script>									
 									';
 								}
@@ -94,7 +96,9 @@
 									<script>
 									var messageBox = document.getElementById("messageBox");
 									messageBox.innerHTML =
-									"<p style=\'font-size:20px\' class=\'alert alert-danger\'><span class=\'glyphicon glyphicon-remove-circle\'></span> Please review your information, the information is wrong.</p>";								messageBox.classList.remove("hidden");			setTimeout(function(){messageBox.classList.toggle("hidden");}, 7000);
+									"<p style=\'font-size:20px\' class=\'alert alert-danger\'><i class=\'fa fa-warning\' style=\'font-size:24px\'></i> Please review your information, the information is wrong.</p><br><br>";
+									messageBox.classList.remove("hidden");
+									setTimeout(function(){messageBox.classList.toggle("hidden");}, 7000);
 									</script>	
 									';
 								}

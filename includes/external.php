@@ -50,3 +50,4 @@
 <!-- Scripts.js -->
 <script src="js/scripts.js"></script>
 <script src="js/loginmodel.js"></script>
+<script src="js/star-rating.min.js" type="text/javascript"></script>

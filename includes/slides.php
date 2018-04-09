@@ -105,7 +105,7 @@
 				<div class="col-sm-6 text-right float-right">
 					<div class="comment-box">
 						<div class="title">Comment</div>
-						<div class="clearfix"><p><?php echo $comment ?><br><br><span class="highest_rated"> Rated by:<br> <a style="color:#0645AD" href="profile.php?name=<?php echo $raterName ?>"><?php echo $raterName ?></a></span></p></div>
+						<div class="clearfix"><p><?php echo ($comment == '' ? "No comment!" : $comment) ?><br><br><span class="highest_rated"> Rated by:<br> <a style="color:#0645AD" href="profile.php?name=<?php echo $raterName ?>"><?php echo $raterName ?></a></span></p></div>
 					</div> <!-- end .hours-box -->
 				</div> <!-- end .col-sm-6 -->
 			</div> <!-- end .row -->

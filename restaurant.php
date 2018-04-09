@@ -48,13 +48,13 @@
 			$row = pg_fetch_assoc($result);
 			$rName = $row['name'];
 			$rUrl = $row['url'];
-			echo "<a href = 'http://$rUrl'>$rName</a>";
+			echo "<a style='color:white;' href = 'http://$rUrl'>$rName</a>";
 		?></strong></h2>
 		
 	</div>
 	<div class="row clearfix">
 		<div class="col-md-4 column text-center" id="review">	
-		<button style="margin-bottom:10px" id="rateLink" name = "write-review" method="post"  type="write-review" class="button burgundy solid">
+		<button style="margin-bottom:10px" id="rateLink" type="write-review" class="button burgundy solid">
 			<strong><span class="glyphicon glyphicon-star-empty" style="margin-right:10px; font-size:15px;"></span>Rate it</strong>
 		</button>
 		</div>
@@ -79,7 +79,7 @@
 					echo "
 					<script>
 						review = document.getElementById('review');
-						review.innerHTML = \"<a style='margin-bottom:10px' class='button burgundy solid' href ='tel:" . $number . "'><span class='fa fa-phone' style='margin-right:10px; font-size:15px;'></span>Call</a>'<br>\" +  review.innerHTML;
+						review.innerHTML = \"<a style='margin-bottom:10px' class='button burgundy solid' href ='tel:" . $number . "'><span class='fa fa-phone' style='margin-right:10px; font-size:15px;'></span>Call</a><br>\" +  review.innerHTML;
 					</script>
 					";
 				?>
@@ -125,7 +125,7 @@
 				<script>
 				review = document.getElementById('review');
 				review.innerHTML = review.innerHTML + 
-				\"<br><a class='button burgundy solid' href ='results.php?query=" .$cuisine . "&cui=" . $cuisine . "'>$cuisine cuisine</a>'\"
+				\"<br><a class='button burgundy solid' href ='results.php?query=" .$cuisine . "&cui=" . $cuisine . "'><span class='fa fa-cutlery' style='margin-right:10px; font-size:15px;'></span>$cuisine cuisine</a>\"
 				</script>
 				";
 			?>
@@ -167,9 +167,10 @@
 		</div>
 		</div>
 	</div>
+	<div class="row clearfix hidden" id="messageBox"></div>
 	<br>
 	<div class="row clearfix">
-			<h2 class="white">Reviews</h2>
+			<h2 class="white">Ratings</h2>
 			<?php
 				require('connect.php');
 				$result = pg_query("
@@ -192,18 +193,16 @@
 					$type = $res1['description'];
 
 					echo "	
-					<p style='color:white;'>
-						$comment
-					</p>
+					<p style='color:white;'>" . ($comment == '' ? "No comment!" : $comment) . "</p>
 					<h4 style='color:white;'> 
-						by <a style='color:white;' href='profile.php?name=$author'>$author</a> | $type
+						by <a style='color:#c63939;' href='profile.php?name=$author'>$author</a> | $type
 					</h4>
 					<strong>Food: </strong> $food | <strong>Mood: </strong> $mood | <strong>Price: </strong> $price | <strong>Staff: </strong> $staff
 					<hr>
 					";
 				}
 			?>
-			<h4 class="white"><a class="button burgundy solid" onClick="popularQueryM(); return false;" href="#">Find the most frequent raters</a></h4><br>
+			<h4 class="white"><a class="button burgundy solid" onClick="popularQueryM(); return false;" href="#"><span class='fa fa-search' style='margin-right:10px; font-size:15px;'></span>Find the most frequent raters</a></h4><br>
 		</div>
 		<div class="row clearfix">
 		<!-- Menu Table -->
@@ -213,13 +212,13 @@
 				<table class="table white" style="margin-top:20px"> <!-- match margin of H2 next to it -->
 					<!-- Header -->
 					<thead>
-						<tr>
+						<tr style='background-color:white;padding:5px;'>
 							<?php
 								$id = $_GET['id'];
-								echo "<th style='color:white;'><a href='restaurant.php?id=$id&sort=item'>Item</a></th>";
-								echo "<th style='color:white;'><a href='restaurant.php?id=$id&sort=price'>Price</a></th>";
-								echo "<th style='color:white;'><a href='restaurant.php?id=$id&sort=type'>Type</a></th>";
-								echo "<th style='color:white;'><a href='restaurant.php?id=$id&sort=rating'>Rating</a></th>";
+								echo "<th style='color:#c63939;'><a style='margin-left:5px;' href='restaurant.php?id=$id&sort=item'>Item</a></th>";
+								echo "<th style='color:#c63939;'><a href='restaurant.php?id=$id&sort=price'>Price</a></th>";
+								echo "<th style='color:#c63939;'><a href='restaurant.php?id=$id&sort=type'>Type</a></th>";
+								echo "<th style='color:#c63939;'><a href='restaurant.php?id=$id&sort=rating'>Rating</a></th>";
 							?>
 							<th />
 							<th />
@@ -286,7 +285,7 @@
 				</table>
 				
 				<!-- BUTTON FOR ADDING NEW MENU ITEM -->
-				<button  onclick = "redirect('add-item.php')" name = "add-item" method  = "post"  type="add-item" class="button burgundy solid">
+				<button  id="addMenuLink" class="button burgundy solid">
 					<strong><span class=" glyphicon glyphicon-plus" style="margin-right:10px"></span>Add a Menu Item</strong>
 				</button>
 			</div>
@@ -300,7 +299,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Rate it</h4>
+          <h4 class="modal-title">Rate - <?php echo $rName ?></h4>
         </div>
         <div class="modal-body">
 			<?php include("includes/ratingBox.php")?>
@@ -312,9 +311,138 @@
     </div>
   </div> 
 </div>
+
+<?php
+	if($userid != "" && $name != ""){
+		$userid = $_SESSION['userid'];
+		$id = $_GET['id'];
+		if(array_key_exists('food', $_POST) && array_key_exists('price', $_POST) && array_key_exists('mood', $_POST)
+			&& array_key_exists('staff', $_POST) && array_key_exists('comments', $_POST)){
+			require('connect.php');
+
+			$food = $_POST['food'];
+			$price = $_POST['price'];
+			$mood = $_POST['mood'];
+			$staff = $_POST['staff'];
+			$comments = $_POST['comments'];
+			$location_id = $id;
+
+			//Current date in YYYY-MM-DD format
+			$currentDate = date('m-d-Y H:i:s', time());
+
+			$query = "
+				INSERT INTO Rating(user_id, post_date, price, food, mood, staff, comments, location_id)
+				VALUES($userid, '$currentDate', $price, $food, $mood, $staff, '$comments', $location_id);
+			";
+
+			$result = pg_query($query); 
+
+			$row = pg_fetch_assoc($result);
+			$name = $row['name'];
+			echo '
+				<script>
+					var messageBox = document.getElementById("messageBox");
+					messageBox.innerHTML =
+					"<p style=\'font-size:20px\' class=\'alert alert-success\'> <span class=\'glyphicon glyphicon-ok-circle\'></span> Thank you for rating this restaurant! Your rating has been saved.</p>";							messageBox.classList.remove("hidden");			setTimeout(function(){messageBox.classList.toggle("hidden");}, 7000);
+				</script>
+			';
+		}
+	}
+	
+	else {
+		echo '
+		<script>
+			var messageBox = document.getElementById("messageBox");
+			messageBox.innerHTML =
+			"<p style=\'font-size:20px\' class=\'alert alert-info\'><i class=\'fa fa-info-circle\' style=\'font-size:24px\'></i> You need an account to rate this restaurant. You can sign in or register at the top of the page.</p>";								messageBox.classList.remove("hidden");			setTimeout(function(){messageBox.classList.toggle("hidden");}, 7000);
+		</script>
+		';
+	}
+	
+	if(array_key_exists('name', $_POST) && array_key_exists('type', $_POST) 
+		&& array_key_exists('addPrice', $_POST) && array_key_exists('description', $_POST)){
+		$iName = $_POST['name'];
+		$type = $_POST['type'];
+		if($type == "Other")
+			$type = 0;
+		else if($type == "Appetizer")
+			$type = 1;
+		else if($type == "Entree")
+			$type = 2;
+		else if($type == "Dessert")
+			$type = 3;
+		else if($type == "Beverage")
+			$type = 4;
+		else if($type == "Alcoholic")
+			$type = 5;
+		$description = $_POST['description'];
+		$price = $_POST['addPrice'];
+		$location_id = $_GET['id'];
+		require('connect.php');
+		$result = pg_query("SELECT * FROM Location L WHERE L.location_id = $location_id;");
+		$result = pg_fetch_assoc($result);
+		$rId = $result['restaurant_id'];
+
+		$result = pg_query("SELECT * FROM MenuItem MI WHERE MI.restaurant_id = $rId AND 
+			MI.name = '$iName'");
+		$num = pg_num_rows($result);
+
+		if($num == 0){
+			$result = pg_query("INSERT INTO MenuItem(name, type_id, description, price, restaurant_id)
+				VALUES('$iName', $type, '$description', $price, $rId);");
+			echo '
+				<script>
+					var messageBox = document.getElementById("messageBox");
+					messageBox.innerHTML =
+					"<p style=\'font-size:20px\' class=\'alert alert-success\'> <span class=\'glyphicon glyphicon-ok-circle\'></span> Thank you for adding this menu item! Your menu has been saved.</p><br><br>";
+					messageBox.classList.remove("hidden");
+					setTimeout(function(){messageBox.classList.toggle("hidden");}, 7000);
+				</script>
+			';
+		}
+		
+		else {
+			echo '
+				<script>
+					var messageBox = document.getElementById("messageBox");
+					messageBox.innerHTML =
+					"<p style=\'font-size:20px\' class=\'alert alert-info\'><i class=\'fa fa-info-circle\' style=\'font-size:24px\'></i> Sorry but this specific menu exists already!</p><br><br>";								messageBox.classList.remove("hidden");
+					setTimeout(function(){messageBox.classList.toggle("hidden");}, 7000);
+				</script>
+			';
+		}
+	}
+?>
+
+<div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="addMenuModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add a menu for <?php echo $rName ?></h4>
+        </div>
+        <div class="modal-body">
+			<?php include("includes/addMenuBox.php")?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>      
+    </div>
+  </div> 
+</div>
+
 <script>
 $("#rateLink").on('click', function(event){
 $("#ratingModal").modal({backdrop: 'static'}, "show");
+});
+
+$("#addMenuLink").on('click', function(event){
+$("#addMenuModal").modal({backdrop: 'static'}, "show");
 });
 </script>
 <div class="spacer"></div>

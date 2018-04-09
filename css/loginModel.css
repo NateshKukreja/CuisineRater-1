@@ -51,9 +51,14 @@
 
 .modal-header
 {
-  background: lightgrey;
+  background: #af3333;
   color: white;
   text-align: center;
+}
+
+.modal-title
+{
+  color: white;
 }
 
 .input-group-addon
