@@ -33,16 +33,16 @@ if($name == "" || $userid == ""){
 							<li>
 								<a href="menu.html">Cuisines</a>
 								<ul>
-									<li><a href="results.php?search=Breakfast&cui=Breakfast">Breakfast/Brunch</a></li>
-									<li><a href="results.php?search=Grill&cui=Grill>Grill</a></li>
-									<li><a href="results.php?search=Chinese&cui=Chinese">Chinese</a></li>
-									<li><a href="results.php?search=Indian&cui=Indian">Indian</a></li>
-									<li><a href="results.php?search=Indian&cui=Indian">Italian</a></li>
-									<li><a href="results.php?search=Korean&cui=Korean">Korean</a></li>
-									<li><a href="results.php?search=Mexican&cui=Mexican">Mexican</a></li>
-									<li><a href="results.php?search=Sandwiches&cui=Sandwiches">Sandwiches</a></li>
-									<li><a href="results.php?search=Middle&cui=Middle">Middle Eastern</a></li>
-									<li><a href="results.php?search=Other&cui=Other">Other</a></li>
+									<li><a href="cuisines.php?query=Breakfast&cui=Breakfast">Breakfast/Brunch</a></li>
+									<li><a href="cuisines.php?query=Grill&cui=Grill>Grill</a></li>
+									<li><a href="cuisines.php?query=Chinese&cui=Chinese">Chinese</a></li>
+									<li><a href="cuisines.php?query=Indian&cui=Indian">Indian</a></li>
+									<li><a href="cuisines.php?query=Indian&cui=Indian">Italian</a></li>
+									<li><a href="cuisines.php?query=Korean&cui=Korean">Korean</a></li>
+									<li><a href="cuisines.php?query=Mexican&cui=Mexican">Mexican</a></li>
+									<li><a href="cuisines.php?query=Sandwiches&cui=Sandwiches">Sandwiches</a></li>
+									<li><a href="cuisines.php?query=Middle&cui=Middle">Middle Eastern</a></li>
+									<li><a href="cuisines.php?query=Other&cui=Other">Other</a></li>
 								</ul>
 							</li>
 							<li><a href="contact.php">Contact</a></li>
@@ -76,16 +76,16 @@ else{
 					<li>
 						<a style="cursor:pointer">Cuisines</a>
 						<ul>
-							<li><a href="results.php?search=Breakfast&cui=Breakfast">Breakfast/Brunch</a></li>
-							<li><a href="results.php?search=Grill&cui=Grill">Grill</a></li>
-							<li><a href="results.php?search=Chinese&cui=Chinese">Chinese</a></li>
-							<li><a href="results.php?search=Indian&cui=Indian">Indian</a></li>
-							<li><a href="results.php?search=Italian&cui=Italian">Italian</a></li>
-							<li><a href="results.php?search=Korean&cui=Korean">Korean</a></li>
-							<li><a href="results.php?search=Mexican&cui=Mexican">Mexican</a></li>
-							<li><a href="results.php?search=Sandwiches&cui=Sandwiches">Sandwiches</a></li>
-							<li><a href="results.php?search=Middle%20Eastern&cui=Middle%20Eastern">Middle Eastern</a></li>
-							<li><a href="results.php?search=Other&cui=Other">Other</a></li>
+							<li><a href="cuisines.php?query=Breakfast&cui=Breakfast">Breakfast/Brunch</a></li>
+							<li><a href="cuisines.php?query=Grill&cui=Grill">Grill</a></li>
+							<li><a href="cuisines.php?query=Chinese&cui=Chinese">Chinese</a></li>
+							<li><a href="cuisines.php?query=Indian&cui=Indian">Indian</a></li>
+							<li><a href="cuisines.php?query=Italian&cui=Italian">Italian</a></li>
+							<li><a href="cuisines.php?query=Korean&cui=Korean">Korean</a></li>
+							<li><a href="cuisines.php?query=Mexican&cui=Mexican">Mexican</a></li>
+							<li><a href="cuisines.php?query=Sandwiches&cui=Sandwiches">Sandwiches</a></li>
+							<li><a href="cuisines.php?query=Middle%20Eastern&cui=Middle%20Eastern">Middle Eastern</a></li>
+							<li><a href="cuisines.php?query=Other&cui=Other">Other</a></li>
 						</ul>
 					</li>
 					<li><a href="contact.php">Contact</a></li>

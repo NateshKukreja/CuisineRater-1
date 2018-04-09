@@ -120,9 +120,9 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-3">
-							<h2>From menu</h2>
-							<p>Lorem ipsum dolor sit amet, consetetur sadi erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren.</p>
-							<p>No sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, conset.</p>
+							<h2>Menu Items</h2>
+							<p>Find menus that are served from any restaurant.</p>
+							<p>You will always enjoy new menus that you never though of.</p>
 							<a href="" class="button">Full Menu</a>
 						</div> <!-- end .col-sm-3 -->
 						<div class="column-spacer"></div>

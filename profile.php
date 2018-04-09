@@ -17,13 +17,11 @@
 
 	<script type="text/javascript">
 		function popularQueryH() {
-			var name = getParameterByName("name");
-			document.location.href="popular.php?query=h&extrao=" + name;
+			document.location.href="popular.php?query=h&extrao=" + getParameterByName("name");
 		}
 
 		function popularQueryN(higherOrLower) {
-			var name = getParameterByName("name");
-			document.location.href="popular.php?query=n&extrao=" + name + "&extrat=" + higherOrLower;
+			document.location.href="popular.php?query=n&extrao=" + getParameterByName("name") + "&extrat=" + higherOrLower;
 		}
 	</script>
 </head>
